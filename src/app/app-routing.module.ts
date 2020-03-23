@@ -10,6 +10,9 @@ const routes: Routes = [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: ProfileComponent}
     ]
+  },
+  {
+    path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   }
 ];
 
