@@ -1,0 +1,47 @@
+<div class="main">
+
+  <div class="container">
+    <mat-horizontal-stepper #stepper>
+
+      <mat-step [stepControl]="loginForm">
+        <form [formGroup]="loginForm">
+          <ng-template matStepLabel>Fill out your phone number</ng-template>
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput placeholder="Phone number" formControlName="PhoneNumber" required>
+            <mat-error *ngIf="loginForm.get('PhoneNumber').hasError('required')">
+              The phone number is required
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext
+                    (click)="login(loginForm)"
+                    [disabled]="!loginForm.valid"
+            >Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="confirmForm">
+        <form [formGroup]="confirmForm">
+          <ng-template matStepLabel>Fill out your code</ng-template>
+          <mat-form-field>
+            <mat-label>Code</mat-label>
+            <input matInput formControlName="Code" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+
+  </div>
+
+</div>
+
+
