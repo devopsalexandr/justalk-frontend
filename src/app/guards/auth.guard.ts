@@ -2,30 +2,38 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {TokenProvider} from '../services/token.provider';
 import {AuthService} from '../services/auth.service';
 import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class AuthGuard implements CanActivate {
+
+  // this routes will be show only for guests
+  protected exceptRoutes: Array<string> = [
+    '/',
+  ];
 
   constructor(private tokenProvider: TokenProvider, private router: Router, private authService: AuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const isLogin = this.tokenProvider.hasToken() as boolean;
 
-    if (isLogin) {
+    const hasToken = this.tokenProvider.hasToken() as boolean;
 
-      // switch (state.url) {
-      //   case '/':
-      //
-      // }
-      console.log(state.url);
+    const isExceptRoute = this.exceptRoutes.includes(state.url);
 
+    if (hasToken) {
+      if (isExceptRoute) {
+        return this.router.navigateByUrl('/profile');
+      }
       return true;
     }
 
-    this.authService.logout();
-    this.router.navigateByUrl('/');
+    // if user has not token
+    if (isExceptRoute) {
+      return true;
+    }
 
-    return false;
+    return this.router.navigateByUrl('/');
   }
 
 }

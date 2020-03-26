@@ -16,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import {SharedModule} from './shared/shared.module';
 import {AuthService} from './services/auth.service';
 import {TokenProvider} from './services/token.provider';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {TokenProvider} from './services/token.provider';
   ],
   providers: [
     AuthService,
-    TokenProvider
+    TokenProvider,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
