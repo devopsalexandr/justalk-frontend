@@ -28,11 +28,11 @@ export class AuthComponent implements OnInit {
       PhoneNumber: ['', Validators.required]
     });
     this.confirmForm = this.formBuilder.group({
-      Code: ['', Validators.required, Validators.min(5)]
+      Code: ['', Validators.required]
     });
   }
 
-  login(loginForm: FormGroup) {
+  login(loginForm: FormGroup): void {
     const phoneNumber = loginForm.get('PhoneNumber').value as string;
 
     this.authService.login(phoneNumber)
@@ -42,7 +42,18 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  confirm() {
-    // this.router.navigate(['/profile']);
+  confirm(confirmForm: FormGroup): void {
+
+    const code = confirmForm.get('Code').value as string;
+
+    this.authService.confirm(this.phoneNumber, code)
+      .subscribe(
+        () => this.router.navigate(['/profile']),
+        error => console.log(error.error.errors)
+      );
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }
