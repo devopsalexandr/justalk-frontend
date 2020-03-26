@@ -1,6 +1,5 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {TokenProvider} from '../services/token.provider';
-import {AuthService} from '../services/auth.service';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 
@@ -12,7 +11,7 @@ export class AuthGuard implements CanActivate {
     '/',
   ];
 
-  constructor(private tokenProvider: TokenProvider, private router: Router, private authService: AuthService) {
+  constructor(private tokenProvider: TokenProvider, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
