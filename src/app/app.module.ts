@@ -17,6 +17,9 @@ import {SharedModule} from './shared/shared.module';
 import {AuthService} from './services/auth.service';
 import {TokenProvider} from './services/token.provider';
 import {AuthGuard} from './guards/auth.guard';
+import {environment} from '../environments/environment';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ApiInterceptor} from './interceptors/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import {AuthGuard} from './guards/auth.guard';
     SharedModule
   ],
   providers: [
+    { provide: 'BASE_HOST', useValue: environment.baseHost },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
     AuthService,
     TokenProvider,
     AuthGuard

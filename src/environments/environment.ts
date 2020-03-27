@@ -6,7 +6,7 @@ import {Environment} from './interface';
 
 export const environment: Environment = {
   production: false,
-  baseHost: ''
+  baseHost: 'https://localhost:5001'
 };
 
 /*

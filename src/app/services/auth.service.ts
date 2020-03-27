@@ -15,7 +15,7 @@ export class AuthService {
       phoneNumber: phone
     };
 
-    return this.http.post<void>('https://localhost:5001/api/auth/login', body)
+    return this.http.post<void>('/api/auth/login', body)
       .pipe(
         tap(resp => console.log(resp))
       );
@@ -28,7 +28,7 @@ export class AuthService {
       codeVerification
     };
 
-    return this.http.post<void>('https://localhost:5001/api/auth/confirm', body)
+    return this.http.post<void>('/api/auth/confirm', body)
       .pipe(
         tap((resp: any) => {
           this.tokenProvider.setToken(resp.data.accessToken);
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   public logout(): Observable<void> {
-    return this.http.post<void>('https://localhost:5001/api/auth/logout', {})
+    return this.http.post<void>('/api/auth/logout', {})
       .pipe(
         tap(() => this.tokenProvider.clearToken())
       );
